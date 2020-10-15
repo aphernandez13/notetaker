@@ -2,6 +2,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    
   }
   
   .save-note {
@@ -35,7 +36,7 @@ html, body {
   }
   
   .note-title:read-only, .note-textarea:read-only {
-    color: #757575;
+    color: #aaa7a7;
   }
   
   .list-container .card {
