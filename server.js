@@ -51,3 +51,36 @@ app.post("/api/notes", function (req, res) {
    
 });
 
+//DELETE
+app.delete("/api/notes/:id", async function (req, res) {
+    try {
+    const { id } = req.params;
+    
+    
+    const data = await fs.promises.readFile(__dirname + "/db/db.json", "utf8");
+
+    let notes = JSON.parse(data);
+
+    notes = notes.filter((note) => note.id !== id);
+        console.log(notes)
+    const stringifiedData = JSON.stringify(notes, null, 2);
+
+    await fs.promises.writeFile(__dirname + "/db/db.json", stringifiedData)
+        res.json(true);
+    } catch (err){
+        res.status(500).end();
+    }
+});
+
+//load notes.html
+app.get("/notes", function(req, res){
+    res.sendFile(path.join(__dirname + "/public/notes.html"))
+});
+
+//PUT GET * HERE
+app.get("*", function (req, res) {
+    res.sendFile(__dirname + "/public/index.html")
+});
+app.listen(PORT, () =>
+    console.log(`App listening at http://localhost:${PORT}`)
+);
